@@ -5,8 +5,13 @@ import { createElement } from "./utils/elements";
 
 let counter = 10;
 
-function countDown() {
-  counter--;
+function startCountDown() {
+  let counterNumber = document.querySelector(".timer__display").textContent;
+  let countdown = setInterval(function () {
+    counterNumber--;
+    document.querySelector(".timer__display").textContent = counterNumber;
+    if (counterNumber <= 0) clearInterval(countdown);
+  }, 1000);
 }
 
 export function createTimer() {
@@ -21,8 +26,7 @@ export function createTimer() {
         innerText: "Start",
         className: "timer__btn",
         onclick: () => {
-          countDown(counter);
-          console.log(counter);
+          startCountDown();
         },
         // children: [playBtnAction],
       }),
