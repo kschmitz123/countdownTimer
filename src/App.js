@@ -1,26 +1,7 @@
 import "./style.css";
 import { createElement } from "./utils/elements";
-// // import playBtnImg from "./play.png";
-// import pauseBtnImg from "./pause.png";
-let intervalID = null;
-
-function startCountdown(counterNumber) {
-  let intervalID = setInterval(function () {
-    counterNumber--;
-    document.querySelector(".timer__display").textContent = counterNumber;
-    if (counterNumber <= 0) clearInterval(intervalID);
-  }, 1000);
-}
-
-function stopCountdown() {
-  clearInterval(intervalID);
-}
 
 export function createTimer() {
-  // const playBtnAction = createElement("img", {
-  //   src: pauseBtnImg,
-  // });
-
   const TimerContainer = createElement("div", {
     className: "timer",
     children: [
@@ -28,28 +9,48 @@ export function createTimer() {
         innerHTML: "Start",
         className: "timer__btn",
         onclick: () => {
-          startCountdown(60);
-          change();
+          const inputValue = document.querySelector(".timer__input").value;
+
+          change(inputValue);
         },
       }),
       createElement("input", {
         className: "timer__input",
+        type: "number",
       }),
       createElement("div", {
         className: "timer__display",
-        // children: [playBtnAction],
       }),
     ],
   });
   return TimerContainer;
 }
 
-function change() {
-  let elem = document.querySelector(".timer__btn");
-  if (elem.innerHTML == "Start") {
-    elem.innerHTML = "Pause";
+let intervalID = null;
+
+function startCountdown(timeLeft) {
+  intervalID = setInterval(function () {
+    timeLeft--;
+    document.querySelector(".timer__display").innerHTML = timeLeft;
+    if (timeLeft === 0) clearInterval(intervalID);
+  }, 1000);
+}
+
+function stopCountdown() {
+  clearInterval(intervalID);
+  document.querySelector(".timer__input").value = document.querySelector(
+    ".timer__display"
+  ).innerText;
+}
+
+function change(inputValue) {
+  let btn = document.querySelector(".timer__btn");
+  console.log(btn.innerText);
+  if (btn.innerText === "Start") {
+    btn.innerText = "Pause";
+    startCountdown(inputValue);
   } else {
     stopCountdown();
-    elem.innerHTML = "Start";
+    btn.innerText = "Start";
   }
 }
