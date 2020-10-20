@@ -1,8 +1,27 @@
-import "./app.css";
+import "./style.css";
+import { createElement } from "./utils/elements";
+// import playBtnImg from "./play.png";
+// import pauseBtnImg from "./pause.png";
 
-export function App() {
-  const app = document.createElement("div");
-  app.className = "app";
-  app.innerHTML = "<b>Awesome</b> Webpack Template!";
-  return app;
+export function createTimer() {
+  //   const playBtnAction = createElement("img", {
+  //     src: playBtnImg,
+  //   });
+  const TimerContainer = createElement("div", {
+    className: "timer",
+    children: [
+      createElement("button", {
+        innerText: "Play",
+        className: "timer__btn",
+        // children: [playBtnAction],
+      }),
+      createElement("input", {
+        className: "timer__input",
+      }),
+      createElement("div", {
+        className: "timer__display",
+      }),
+    ],
+  });
+  return TimerContainer;
 }
