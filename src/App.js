@@ -1,43 +1,55 @@
 import "./style.css";
 import { createElement } from "./utils/elements";
-// import playBtnImg from "./play.png";
+// // import playBtnImg from "./play.png";
 // import pauseBtnImg from "./pause.png";
+let intervalID = null;
 
-let counter = 10;
-
-function startCountDown() {
-  let counterNumber = document.querySelector(".timer__display").textContent;
-  let countdown = setInterval(function () {
+function startCountdown(counterNumber) {
+  let intervalID = setInterval(function () {
     counterNumber--;
     document.querySelector(".timer__display").textContent = counterNumber;
-    if (counterNumber <= 0) clearInterval(countdown);
+    if (counterNumber <= 0) clearInterval(intervalID);
   }, 1000);
 }
 
+function stopCountdown() {
+  clearInterval(intervalID);
+}
+
 export function createTimer() {
-  //   const playBtnAction = createElement("img", {
-  //     src: playBtnImg,
-  //   });
+  // const playBtnAction = createElement("img", {
+  //   src: pauseBtnImg,
+  // });
 
   const TimerContainer = createElement("div", {
     className: "timer",
     children: [
       createElement("button", {
-        innerText: "Start",
+        innerHTML: "Start",
         className: "timer__btn",
         onclick: () => {
-          startCountDown();
+          startCountdown(60);
+          change();
         },
-        // children: [playBtnAction],
       }),
       createElement("input", {
         className: "timer__input",
       }),
       createElement("div", {
-        innerText: counter,
         className: "timer__display",
+        // children: [playBtnAction],
       }),
     ],
   });
   return TimerContainer;
+}
+
+function change() {
+  let elem = document.querySelector(".timer__btn");
+  if (elem.innerHTML == "Start") {
+    elem.innerHTML = "Pause";
+  } else {
+    stopCountdown();
+    elem.innerHTML = "Start";
+  }
 }
