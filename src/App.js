@@ -17,6 +17,7 @@ export function createTimer() {
       createElement("input", {
         className: "timer__input",
         type: "number",
+        placeholder: "Enter number",
       }),
       createElement("div", {
         className: "timer__display",
