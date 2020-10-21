@@ -23,6 +23,7 @@
 .timer__input {
   width: 50%;
   height: 2rem;
+  font-size: 1.2rem;
   border-radius: 15px;
   text-align: center;
 }
